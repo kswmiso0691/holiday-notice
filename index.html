@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026년 휴무 안내</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .page-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+
+    /* 헤더 */
+    .header {
+      text-align: center;
+      padding: 40px 20px 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 14px;
+      color: #888;
+    }
+
+    /* 섹션 카드 */
+    .section-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .section-title {
+      padding: 20px 24px 16px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      position: relative;
+    }
+
+    .section-title .period {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    .summer .section-title { background: linear-gradient(135deg, #0077b6, #00b4d8); }
+    .may .section-title { background: linear-gradient(135deg, #2d6a4f, #52b788); }
+
+    .section-body {
+      padding: 20px 24px 24px;
+    }
+
+    /* 달력 */
+    .calendar {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      table-layout: fixed;
+    }
+
+    .calendar th {
+      padding: 10px 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 2px solid #eee;
+      text-align: center;
+    }
+
+    .calendar th:first-child { color: #e74c3c; }
+    .calendar th:last-child { color: #3498db; }
+
+    .calendar td {
+      padding: 8px 4px;
+      text-align: center;
+      vertical-align: top;
+      font-size: 13px;
+      border-bottom: 1px solid #f5f5f5;
+      height: 60px;
+    }
+
+    .calendar .day-num {
+      display: block;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .calendar .day-label {
+      display: block;
+      font-size: 10px;
+      line-height: 1.3;
+      color: #666;
+    }
+
+    .calendar .holiday {
+      background: #fff5f5;
+    }
+
+    .calendar .holiday .day-num {
+      color: #e74c3c;
+    }
+
+    .calendar .holiday .day-label {
+      color: #e74c3c;
+      font-weight: 600;
+    }
+
+    .calendar .start-day {
+      background: #f0fdf4;
+    }
+
+    .calendar .start-day .day-num {
+      color: #16a34a;
+    }
+
+    .calendar .start-day .day-label {
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .calendar .normal .day-label {
+      color: #3498db;
+    }
+
+    /* 배송 안내 테이블 */
+    .info-block {
+      margin-bottom: 16px;
+    }
+
+    .info-block-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+      padding: 10px 14px;
+      background: #f8f9fa;
+      border-radius: 8px 8px 0 0;
+      border-left: 4px solid #0077b6;
+    }
+
+    .may .info-block-title {
+      border-left-color: #2d6a4f;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .info-table th {
+      background: #f1f3f5;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: #495057;
+      border: 1px solid #e9ecef;
+      text-align: center;
+    }
+
+    .info-table td {
+      padding: 10px 12px;
+      border: 1px solid #e9ecef;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* 공지 박스 */
+    .notice-box {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #5d4037;
+      line-height: 1.7;
+    }
+
+    .notice-box strong {
+      display: block;
+      font-size: 14px;
+      color: #e65100;
+      margin-bottom: 6px;
+    }
+
+    .notice-box .caution {
+      color: #c62828;
+      font-weight: 600;
+    }
+
+    /* 문의 */
+    .contact {
+      text-align: center;
+      margin-top: 16px;
+      padding: 12px;
+      background: #e8f4fd;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #0077b6;
+      font-weight: 600;
+    }
+
+    .contact a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+
+    /* 푸터 */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    /* 반응형 */
+    @media (max-width: 600px) {
+      .page-wrapper {
+        padding: 12px 10px 40px;
+      }
+
+      .header { padding: 28px 16px 20px; }
+      .header h1 { font-size: 22px; }
+
+      .section-title {
+        padding: 16px 18px 12px;
+        font-size: 17px;
+      }
+
+      .section-body {
+        padding: 16px 14px 20px;
+      }
+
+      .calendar th { padding: 8px 2px; font-size: 11px; }
+      .calendar td { padding: 6px 2px; font-size: 11px; height: 52px; }
+      .calendar .day-num { font-size: 13px; }
+      .calendar .day-label { font-size: 9px; }
+
+      .info-table { font-size: 12px; }
+      .info-table th, .info-table td { padding: 8px 6px; }
+
+      .notice-box { padding: 12px 14px; font-size: 12px; }
+    }
+
+    @media (max-width: 400px) {
+      .header h1 { font-size: 19px; }
+      .calendar .day-label { font-size: 8px; }
+      .info-block-title { font-size: 13px; padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <h1>2026년 휴무 안내</h1>
+    <p class="subtitle">기공소 휴무 일정 및 배송 운영 안내</p>
+  </div>
+
+  <!-- ========== 여름휴가 ========== -->
+  <div class="section-card summer">
+    <div class="section-title">
+      2026년 8월 여름휴가 안내
+      <span class="period">휴가 기간: 8월 2일(일) ~ 8월 4일(월)</span>
+    </div>
+    <div class="section-body">
+
+      <!-- 달력 -->
+      <table class="calendar">
+        <thead>
+          <tr>
+            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td><td></td><td></td><td></td><td></td><td></td>
+            <td class="normal">
+              <span class="day-num">1</span>
+              <span class="day-label">정상업무</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="holiday">
+              <span class="day-num">2</span>
+              <span class="day-label">휴가</span>
+            </td>
+            <td class="holiday">
+              <span class="day-num">3</span>
+              <span class="day-label">휴가</span>
+            </td>
+            <td class="holiday">
+              <span class="day-num">4</span>
+              <span class="day-label">휴가</span>
+            </td>
+            <td class="start-day">
+              <span class="day-num">5</span>
+              <span class="day-label">밤10시~<br>배송시작</span>
+            </td>
+            <td><span class="day-num">6</span></td>
+            <td><span class="day-num">7</span></td>
+            <td><span class="day-num">8</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="notice-box">
+        <strong>※ 휴무 기간 업무 운영 안내 ※</strong>
+        <span class="caution">단, 8/5(수) 오전에 기공소 도착하는 물품은 없습니다.</span><br>
+        업무 지연 최소화를 위해 토요일 대체근무로 진행합니다.
+      </div>
+
+      <!-- 기공소 → 치과 -->
+      <div class="info-block">
+        <div class="info-block-title">기공소 → 치과로 보내는 경우</div>
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>기공소 준비 완료일</th>
+              <th>치과 도착일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8/1(토)까지 준비 완료<br><small>8/2(일)~8/5(수) 치과로<br>도착해야 하는 기공물</small></td>
+              <td><strong>8/2(일) 오전 도착</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 치과 → 기공소 -->
+      <div class="info-block">
+        <div class="info-block-title">치과 → 기공소로 보내는 경우</div>
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>치과에서 수거 접수한 날짜</th>
+              <th>기공소 도착일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8/1(토)</td>
+              <td>8/2(일) 오전 도착</td>
+            </tr>
+            <tr>
+              <td>8/2(일) ~ 8/5(수)</td>
+              <td><strong>8/6(목) 오전 도착</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="contact">
+        문의) <a href="tel:031-360-0415">031-360-0415</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 5월 휴무 ========== -->
+  <div class="section-card may">
+    <div class="section-title">
+      2026년 5월 휴무 안내
+      <span class="period">휴무 기간: 5월 24일(일) ~ 5월 25일(월)</span>
+    </div>
+    <div class="section-body">
+
+      <!-- 달력 -->
+      <table class="calendar">
+        <thead>
+          <tr>
+            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td><td></td><td></td><td></td><td></td><td></td>
+            <td class="normal">
+              <span class="day-num">23</span>
+              <span class="day-label">정상업무</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="holiday">
+              <span class="day-num">24</span>
+              <span class="day-label">휴무</span>
+            </td>
+            <td class="holiday">
+              <span class="day-num">25</span>
+              <span class="day-label">대체휴무</span>
+            </td>
+            <td class="start-day">
+              <span class="day-num">26</span>
+              <span class="day-label">밤10시~<br>배송시작</span>
+            </td>
+            <td><span class="day-num">27</span></td>
+            <td><span class="day-num">28</span></td>
+            <td><span class="day-num">29</span></td>
+            <td><span class="day-num">30</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="notice-box">
+        <strong>※ 휴무 기간 업무 운영 안내 ※</strong>
+        <span class="caution">단, 5/26(화) 오전에 기공소 도착하는 물품은 없습니다.</span><br>
+        업무 지연 최소화를 위해 토요일 대체근무로 진행합니다.
+      </div>
+
+      <!-- 기공소 → 치과 -->
+      <div class="info-block">
+        <div class="info-block-title">기공소 → 치과로 보내는 경우</div>
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>기공소 준비 완료일</th>
+              <th>치과 도착일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5/23(토)까지 준비 완료<br><small>5/24(일)~5/26(화) 치과로<br>도착해야 하는 기공물</small></td>
+              <td><strong>5/24(일) 오전 도착</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 치과 → 기공소 -->
+      <div class="info-block">
+        <div class="info-block-title">치과 → 기공소로 보내는 경우</div>
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>치과에서 수거 접수한 날짜</th>
+              <th>기공소 도착일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5/23(토)</td>
+              <td>5/24(일) 오전 도착</td>
+            </tr>
+            <tr>
+              <td>5/24(일) ~ 5/26(화)</td>
+              <td><strong>5/27(수) 오전 도착</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="contact">
+        문의) <a href="tel:031-360-0415">031-360-0415</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 휴무 안내
+  </div>
+
+</div>
+
+</body>
+</html>
